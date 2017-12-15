@@ -1,5 +1,7 @@
 #include<iostream>
 #include<fstream>
+#include<cstdlib>
+#include<time.h>
 using namespace std;
 struct Index
 {
@@ -21,6 +23,7 @@ typedef struct Nodes
 nodes *tree=NULL;
 int *nums;
 int Count=0;
+void write();
 void read();
 void setTree();
 void add_node(int index,int value);
@@ -33,6 +36,7 @@ int main()
 {
     int choice,value;
     char flag;
+    write();
     read();
     setTree();
     do{
@@ -70,11 +74,14 @@ void read()
         cout<<"error!"<<endl;
         return;
     }
-    int i,value;
+    int i,value,x;
     in>>Count;
     nums=new int[Count];
     for(i=0;i<Count;i++)
     {
+        in>>x;
+        if(x!=i)
+            cout<<"wrong"<<endl;
         in>>value;
         if(in.eof())
             break;
@@ -91,6 +98,22 @@ void setTree()
     {
         add_node(i,nums[i]);
     }
+}
+void write()
+{
+    ofstream out("test.txt",iostream::out);
+    if(!out.is_open())
+    {
+        cout<<"error!"<<endl;
+        return;
+    }
+    out<<10000<<endl;
+    srand(time(NULL));
+    for(int i=0;i<10000;i++)
+    {
+        out<<i<<" "<<rand()%500<<endl;
+    }
+    out.close();
 }
 void add_node(int index,int value)
 {
@@ -181,6 +204,7 @@ void Search(nodes *p,int value)
     else if(p->all->value==value)
     {
         indexs q=p->all->the_index;
+        cout<<"index:"<<endl;
         while(q!=NULL)
         {
             cout<<q->index<<endl;
