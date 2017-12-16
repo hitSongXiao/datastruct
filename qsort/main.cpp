@@ -5,8 +5,9 @@
 #include <cstring>
 #include <algorithm>
 #include <cstdlib>
-#define MAX 500
-#define N 10000
+#define MAX 5000
+#define NUM 200
+#define N 100000
 using namespace std;
 int* nums=NULL;
 int* num2=NULL;
@@ -21,12 +22,19 @@ void write();
 void Write();
 int main()
 {
+    for(int i=0;i<10;i++)
+    {
     write();
     read();
+    int qstart,qend,Start,End;
+    qstart=clock();
     Qsort(1,N);
+    qend=clock();
     Write();
     bool flag=true;
+    Start=clock();
     sort(num2,num2+N);
+    End=clock();
     for(int i=0;i<N;i++)
     {
         if(nums[i+1]!=num2[i])
@@ -36,7 +44,10 @@ int main()
         }
     }
     if(flag)
-        cout<<"Yes"<<endl;
+        cout<<"Yes,qsort is as same as sort"<<endl;
+    cout<<"qsort time:"<<(qend-qstart)<<"ms"<<endl;
+    cout<<"sort time:"<<(End-Start)<<"ms"<<endl;
+    }
     return 0;
 }
 void write()
@@ -51,13 +62,14 @@ void write()
     srand(time(NULL));
     for(int i=0;i<N;i++)
     {
-        out<<i<<" "<<rand()%MAX<<endl;
+        out<<i<<" "<<rand()%(MAX/NUM)+(i/(MAX/NUM))*(MAX/NUM)<<endl;
+        //out<<i<<" "<<rand()%MAX<<endl;
     }
     out.close();
 }
 void Write()
 {
-    ofstream out("test.txt",iostream::out);
+    ofstream out("write.txt",iostream::out);
     if(!out.is_open())
     {
         cout<<"error!"<<endl;

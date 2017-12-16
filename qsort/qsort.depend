@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1513360160 source:c:\users\administrator\desktop\lab4\qsort\main.cpp
+1513402695 source:c:\users\administrator\desktop\lab4\qsort\main.cpp
 	<iostream>
 	<fstream>
 	<limits>
 	<ctime>
+	<cstring>
+	<algorithm>
 	<cstdlib>
 
