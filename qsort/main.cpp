@@ -5,15 +5,17 @@
 #include <cstring>
 #include <algorithm>
 #include <cstdlib>
-#define MAX 5000
+#define MAX 50000
 #define NUM 200
 #define N 100000
 using namespace std;
 int* nums=NULL;
 int* num2=NULL;
+int* num3=NULL;
 int Count=0;
 void write();
 void Qsort(int first,int last);
+void Qsort_2(int a[],int first,int last);
 void insertSort(int first,int last);
 void Swap(int &a,int &b);
 void findTemp(int first,int last);
@@ -30,11 +32,13 @@ int main()
     qstart=clock();
     Qsort(1,N);
     qend=clock();
-    Write();
     bool flag=true;
     Start=clock();
     sort(num2,num2+N);
     End=clock();
+    int s=clock();
+    Qsort_2(num3,0,N-1);
+    int e=clock();
     for(int i=0;i<N;i++)
     {
         if(nums[i+1]!=num2[i])
@@ -45,9 +49,11 @@ int main()
     }
     if(flag)
         cout<<"Yes,qsort is as same as sort"<<endl;
-    cout<<"qsort time:"<<(qend-qstart)<<"ms"<<endl;
+    cout<<"Qsort time:"<<(qend-qstart)<<"ms"<<endl;
     cout<<"sort time:"<<(End-Start)<<"ms"<<endl;
+    cout<<"Qsort_2 time:"<<(e-s)<<"ms"<<endl;
     }
+    Write();
     return 0;
 }
 void write()
@@ -62,6 +68,7 @@ void write()
     srand(time(NULL));
     for(int i=0;i<N;i++)
     {
+        //out<<i<<" "<<MAX-(rand()%(MAX/NUM)+(i/NUM)*(MAX/NUM))<<endl;
         out<<i<<" "<<rand()%(MAX/NUM)+(i/(MAX/NUM))*(MAX/NUM)<<endl;
         //out<<i<<" "<<rand()%MAX<<endl;
     }
@@ -92,6 +99,7 @@ void read()
     in>>Count;
     nums=new int[Count+1];//进行插入排序时设置哨兵
     num2=new int[Count+1];
+    num3=new int[Count+1];
     for(i=0;i<Count;i++)
     {
         in>>x;
@@ -102,6 +110,7 @@ void read()
             break;
         nums[i+1]=value;//nums[0]为哨兵
         num2[i]=value;
+        num3[i]=value;
     }
     if(i<Count)
         cout<<"the nums wrong"<<endl;
@@ -152,6 +161,29 @@ void Qsort(int first,int last)
         Swap(nums[i],nums[j]);
     Qsort(first,left-lowlength);
     Qsort(right+highlength,last);
+}
+void Qsort_2(int a[],int first,int last)
+{
+    if(first>=last)
+        return;
+    int mid=a[first];
+    int left=first,right=last;
+    while(left<right)
+    {
+        while(left<right&&a[right]>=mid)
+        {
+            right--;
+        }
+        a[left]=a[right];
+        while(left<right&&a[left]<mid)
+        {
+            left++;
+        }
+        a[right]=a[left];
+    }
+    a[right]=mid;
+    Qsort_2(a,first,left-1);
+    Qsort_2(a,right+1,last);
 }
 void insertSort(int first,int last)
 {

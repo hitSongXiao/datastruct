@@ -1,31 +1,43 @@
+Qsort:优化后的快排
+Qsort_2:未优化的快排
+sort:系统库函数
+
 随机数测试
 	总数		范围		平均时间
-qsort	10000		500		1.3ms
-	10000		5000		13ms
+Qsort	10000		500		0.7ms
+	10000		5000		1.1ms
 	100000		5000		12.3ms
 	100000		50000		15.6ms
-sort	10000		500		1.7ms
-	10000		5000		17.8ms
+sort	10000		500		1.5ms
+	10000		5000		1.8ms
 	100000		5000		18.4ms
 	100000		50000		20.6ms
+Qsort_2	10000		500		1ms
+	10000		5000		1ms
+	100000		5000		14.6ms
+	100000		50000		14.1ms
 
 总数10000，随机范围500：
-qsort	2ms	2ms	3ms	1ms	1ms	1ms	0ms	1ms	1ms	1ms
-sort	2ms	2ms	2ms	2ms	2ms	2ms	1ms	1ms	2ms	1ms
+Qsort	1ms	0ms	1ms	0ms	1ms	1ms	0ms	1ms	1ms	1ms
+sort	2ms	2ms	1ms	2ms	1ms	1ms	2ms	1ms	1ms	1ms
+Qsort_2	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	
 总数10000，随机范围5000：
-qsort	14ms	13ms	12ms	14ms	13ms	12ms	14ms	13ms	12ms	13ms
-sort	17ms	18ms	18ms	17ms	18ms	18ms	18ms	18ms	18ms	18ms
+Qsort	1ms	1ms	1ms	2ms	1ms	1ms	1ms	1ms	1ms	1ms
+sort	2ms	2ms	1ms	1ms	2ms	2ms	2ms	2ms	2ms	2ms
+Qsort_2	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms
 总数100000，随机范围5000：
-qsort	12ms	12ms	11ms	12ms	14ms	14ms	12ms	13ms	12ms	11ms
+Qsort	12ms	12ms	11ms	12ms	14ms	14ms	12ms	13ms	12ms	11ms
 sort	18ms	18ms	17ms	17ms	17ms	27ms	18ms	17ms	17ms	18ms
+Qsort_2	15ms	14ms	15ms	13ms	15ms	16ms	15ms	17ms	13ms	13ms
 总数100000,随机范围50000：
-qsort	15ms	15ms	17ms	15ms	15ms	15ms	17ms	16ms	16ms	15ms
+Qsort	15ms	15ms	17ms	15ms	15ms	15ms	17ms	16ms	16ms	15ms
 sort	19ms	19ms	19ms	21ms	20ms	19ms	19ms	32ms	19ms	19ms
+Qsort_2	14ms	14ms	14ms	14ms	16ms	14ms	14ms	13ms	14ms	14ms
 
 
 部分有序（块间有序，块中无序）
 	总数		范围		块的数目	平均时间
-qsort	10000		500		100		1.5ms
+Qsort	10000		500		100		1.5ms
 	10000		500		200		0.6ms
 	10000		5000		100		1.5ms
 	10000		5000		200		0.9ms
@@ -33,6 +45,7 @@ qsort	10000		500		100		1.5ms
 	100000		5000		200		11.6ms
 	100000		50000		100		15.4ms
 	100000		50000		200		15.2ms
+
 sort	10000		500		100		1.2ms
 	10000		500		200		0.9ms
 	10000		5000		100		1ms
@@ -42,34 +55,123 @@ sort	10000		500		100		1.2ms
 	100000		50000		100		13.3ms
 	100000		50000		200		13.2ms
 
-总数10000，随机500，分为100块：
-qsort	0ms	1ms	2ms	2ms	3ms	3ms	2ms	0ms	1ms	1ms
+Qsort_2	10000		500		100		69.2ms
+	10000		500		200		112.6ms
+	10000		5000		100		13.6ms
+	10000		5000		200		22.9ms
+	100000		5000		100		1272.9ms
+	100000		5000		200		2188.9ms
+	100000		50000		100		195.5ms
+	100000		50000		200		343.8ms
+
+总数10000，随机范围500，分为100块：
+Qsort	0ms	1ms	2ms	2ms	3ms	3ms	2ms	0ms	1ms	1ms
 sort	0ms	1ms	1ms	1ms	1ms	1ms	2ms	1ms	1ms	3ms
+Qsort_2	70ms	70ms	70ms	68ms	69ms	69ms	69ms	69ms	69ms	69ms
 
-总数10000，随机5000,分为100块：
-qsort	3ms	1ms	1ms	1ms	2ms	1ms	3ms	1ms	1ms	1ms
+总数10000，随机范围5000,分为100块：
+Qsort	3ms	1ms	1ms	1ms	2ms	1ms	3ms	1ms	1ms	1ms
 sort	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms
+Qsort_2	14ms	13ms	14ms	13ms	14ms	14ms	14ms	13ms	14ms	13ms
 
-总数100000，随机5000,分为100块：
-qsort	11ms	10ms	11ms	12ms	14ms	10ms	11ms	15ms	11ms	13ms
+总数100000，随机范围5000,分为100块：
+Qsort	11ms	10ms	11ms	12ms	14ms	10ms	11ms	15ms	11ms	13ms
 sort	10ms	15ms	10ms	11ms	11ms	10ms	11ms	10ms	10ms	12ms
+Qsort_2	1280ms	1266ms	1273ms	1273ms	1275ms	1273ms	1268ms	1262ms	1286ms	1273ms
 
-总数100000,随机50000，分为100块：
-qsort	16ms	16ms	14ms	13ms	18ms	13ms	16ms	16ms	17ms	15ms
+总数100000,随机范围50000，分为100块：
+Qsort	16ms	16ms	14ms	13ms	18ms	13ms	16ms	16ms	17ms	15ms
 sort	13ms	13ms	13ms	13ms	12ms	13ms	13ms	13ms	13ms	17ms
+Qsort_2	199ms	193ms	200ms	190ms	196ms	188ms	200ms	193ms	195ms	201ms	
 
-总数10000，随机500，分为200块：
-qsort	0ms	0ms	1ms	1ms	1ms	1ms	1ms	0ms	1ms	0ms
+总数10000，随机范围500，分为200块：
+Qsort	0ms	0ms	1ms	1ms	1ms	1ms	1ms	0ms	1ms	0ms
 sort	0ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms
+Qsort_2	113ms	114ms	112ms	111ms	110ms	114ms	114ms	113ms	111ms	114ms
 
-总数10000，随机5000,分为200块：
-qsort	1ms	1ms	1ms	1ms	0ms	0ms	3ms	0ms	0ms	2ms
+总数10000，随机范围5000,分为200块：
+Qsort	1ms	1ms	1ms	1ms	0ms	0ms	3ms	0ms	0ms	2ms
 sort	1ms	0ms	1ms	1ms	1ms	1ms	1ms	0ms	1ms	0ms
+Qsort_2	22ms	24ms	23ms	24ms	23ms	23ms	23ms	22ms	23ms	22ms
 
-总数100000，随机5000,分为200块：
-qsort	14ms	9ms	12ms	12ms	14ms	10ms	13ms	10ms	10ms	12ms
+总数100000，随机范围5000,分为200块：
+Qsort	14ms	9ms	12ms	12ms	14ms	10ms	13ms	10ms	10ms	12ms
 sort	9ms	13ms	10ms	12ms	11ms	9ms	12ms	12ms	9ms	13ms
+Qsort_2	2178ms	2178ms	2195ms	2200ms	2213ms	2186ms	2200ms	2200ms	2168ms	2171ms
 
-总数100000,随机50000，分为200块：
-qsort	13ms	13ms	12ms	30ms	13ms	13ms	15ms	16ms	14ms	13ms
+总数100000,随机范围50000，分为200块：
+Qsort	13ms	13ms	12ms	30ms	13ms	13ms	15ms	16ms	14ms	13ms
 sort	12ms	12ms	12ms	16ms	14ms	14ms	16ms	12ms	12ms	12ms
+Qsort_2	346ms	341ms	339ms	357ms	349ms	338ms	337ms	344ms	345ms	342ms
+
+
+部分有序（逆序）
+
+	总数		范围		块的数目	平均时间
+Qsort	10000		500		100		0.8ms
+	10000		500		200		0.3ms
+	10000		5000		100		1.2ms
+	10000		5000		200		1.1ms
+	100000		5000		100		13.9ms
+	100000		5000		200		11ms
+	100000		50000		100		27.5ms
+	100000		50000		200		16.4ms
+
+sort	10000		500		100		0.7ms
+	10000		500		200		1.1ms
+	10000		5000		100		1.1ms
+	10000		5000		200		1ms
+	100000		5000		100		11.4ms
+	100000		5000		200		12.5ms	
+	100000		50000		100		11.9ms
+	100000		50000		200		12.6ms
+
+Qsort_2	10000		500		100		16ms
+	10000		500		200		33.4ms
+	10000		5000		100		7.6ms
+	10000		5000		200		5.4ms
+	100000		5000		100		690.8ms
+	100000		5000		200		508.7ms
+	100000		50000		100		636.3ms
+	100000		50000		200		372.2ms
+
+总数10000，随机范围500，分为100块：
+Qsort	1ms	1ms	1ms	0ms	1ms	1ms	0ms	1ms	1ms	1ms
+sort	1ms	1ms	0ms	1ms	0ms	1ms	1ms	1ms	0ms	1ms
+Qsort_2	17ms	17ms	16ms	17ms	16ms	15ms	16ms	15ms	16ms	15ms
+
+总数10000，随机范围5000,分为100块：
+Qsort	1ms	1ms	1ms	1ms	1ms	1ms	1ms	2ms	2ms	1ms
+sort	1ms	1ms	2ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms
+Qsort_2	7ms	7ms	7ms	8ms	9ms	8ms	8ms	8ms	7ms	7ms
+
+总数100000，随机范围5000,分为100块：
+Qsort	14ms	15ms	14ms	14ms	13ms	14ms	13ms	14ms	15ms	13ms
+sort	12ms	11ms	11ms	11ms	11ms	11ms	12ms	11ms	12ms	12ms
+Qsort_2	693ms	698ms	697ms	691ms	689ms	692ms	680ms	700ms	689ms	679ms
+
+总数100000,随机范围50000，分为100块：
+Qsort	31ms	29ms	23ms	29ms	20ms	27ms	23ms	39ms	20ms	34ms
+sort	12ms	15ms	13ms	10ms	12ms	11ms	12ms	11ms	11ms	12ms
+Qsort_2	643ms	645ms	649ms	62ms	618ms	651ms	612ms	616ms	631ms	636ms	
+
+总数10000，随机范围500，分为200块：
+Qsort	0ms	0ms	1ms	1ms	1ms	1ms	1ms	0ms	1ms	0ms
+sort	0ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms
+Qsort_2	113ms	114ms	112ms	111ms	110ms	114ms	114ms	113ms	111ms	114ms
+
+总数10000，随机范围5000,分为200块：
+Qsort	0ms	1ms	1ms	1ms	1ms	1ms	3ms	1ms	1ms	1ms
+sort	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms	1ms
+Qsort_2	6ms	6ms	5ms	5ms	5ms	5ms	5ms	5ms	6ms	6ms
+
+总数100000，随机范围5000,分为200块：
+Qsort	10ms	14ms	10ms	12ms	10ms	10ms	11ms	11ms	11ms	11ms
+sort	14ms	14ms	12ms	15ms	11ms	12ms	11ms	12ms	12ms	12ms
+Qsort_2	513ms	514ms	505ms	506ms	501ms	499ms	509ms	505ms	515ms	520ms
+
+总数100000,随机范围50000，分为200块：
+Qsort	18ms	14ms	18ms	14ms	14ms	15ms	21ms	16ms	19ms	15ms
+sort	14ms	13ms	12ms	12ms	15ms	12ms	12ms	12ms	12ms	12ms
+Qsort_2	395ms	379ms	370ms	372ms	375ms	365ms	385ms	362ms	362ms	357ms4
+
