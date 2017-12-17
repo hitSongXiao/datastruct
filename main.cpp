@@ -36,7 +36,7 @@ int main()
 {
     int choice,value;
     char flag;
-    write();
+   // write();
     read();
     setTree();
     do{
@@ -83,13 +83,8 @@ void read()
         if(x!=i)
             cout<<"wrong"<<endl;
         in>>value;
-        if(in.eof())
-            break;
         nums[i]=value;
     }
-    if(i<Count)
-        cout<<"the nums wrong"<<endl;
-    Count=i;
     in.close();
 }
 void setTree()
@@ -231,23 +226,61 @@ void Delete(nodes* &p ,int value)
     }
     else
     {
-        nodes *q;
-        if(p->lchild==NULL)
+        indexs ind=p->all->the_index;
+        if(ind->next==NULL)
         {
-            q=p;
-            p=p->rchild;
-            delete q;
-        }
-        else if(p->rchild==NULL)
-        {
-            q=p;
-            p=p->lchild;
-            delete q;
+            nodes *q;
+            if(p->lchild==NULL)
+            {
+                q=p;
+                p=p->rchild;
+                delete q;
+            }
+            else if(p->rchild==NULL)
+            {
+                q=p;
+                p=p->lchild;
+                delete q;
+            }
+            else
+            {
+                p->all=delmin(p->rchild);
+            }
         }
         else
         {
-            p->all=delmin(p->rchild);
+            cout<<"the indexs of "<<value<<"  ";
+            while(ind!=NULL)
+            {
+                cout<<ind->index<<"  ";
+                ind=ind->next;
+            }
+            cout<<endl;
+            cout<<"Which index do you want to delete"<<endl;
+            int index;
+            cin>>index;
+            if(p->all->the_index->index==index)
+            {
+                indexs t=p->all->the_index;
+                p->all->the_index=p->all->the_index->next;
+                delete t;
+                return;
+            }
+            indexs T=p->all->the_index;
+            while(T->next!=NULL)
+            {
+                if(T->next->index==index)
+                {
+                    indexs t=T->next;
+                    T->next=T->next->next;
+                    delete(t);
+                    cout<<"OK"<<endl;
+                    break;
+                }
+                T=T->next;
+            }
         }
+
     }
 }
 equals delmin(nodes* &p)

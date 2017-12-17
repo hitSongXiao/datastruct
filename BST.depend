@@ -1,5 +1,7 @@
 # depslib dependency file v1.0
-1513345667 source:c:\users\administrator\desktop\lab4\bst\main.cpp
+1513509728 source:c:\users\administrator\desktop\lab4\bst\main.cpp
 	<iostream>
 	<fstream>
+	<cstdlib>
+	<time.h>
 
